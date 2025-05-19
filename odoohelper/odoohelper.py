@@ -252,6 +252,8 @@ def attendance(password, user, period, start=None, end=None):
                 weeks[week_key][day_key]["notes"] = f"Sick Leave"
                 weeks[week_key][day_key]["allocated_hours"] = 0
             elif leave_status_id == 3:  # Compensatory days
+                if week_key not in weeks:
+                    weeks[week_key] = {}
                 # Spent banked hours (full days)
                 if day_key not in weeks[week_key]:
                     weeks[week_key][day_key] = {
