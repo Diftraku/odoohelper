@@ -9,7 +9,10 @@ import os
 import sys
 
 import click
+import holidays
 import keyring
+import pytz
+from datetime import datetime, timedelta
 
 from odoohelper.client import Client
 from odoohelper.projects import project_group
@@ -73,9 +76,6 @@ def attendance(password, user, period, start=None, end=None):
     """
     Retrieves timesheet and totals it for the current month.
     """
-    from datetime import datetime, timedelta
-    import pytz
-    import holidays
 
     def colored_diff(title, diff, notes=None, invert=False):
         positive_color = "green"
