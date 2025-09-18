@@ -247,6 +247,22 @@ def attendance(password, user, period, start=None, end=None):
             day_key = date.strftime("%Y-%m-%d")
             # Counts weeks from first Monday of the year
             week_key = date.strftime("%W")
+
+            if week_key not in weeks:
+                # KLUDGE: Use a helper for this
+                weeks[week_key] = {}
+
+            if day_key not in weeks[week_key]:
+                # KLUDGE: Use a helper for this
+                weeks[week_key][day_key] = {
+                    "allocated_hours": 7.5,
+                    "worked_hours": 0,
+                    "overtime": False,
+                    "sick_leave": False,
+                    "compensatory": False,
+                    "notes": None,
+                }
+
             if leave_status_id == 2:  # Sick leave
                 weeks[week_key][day_key]["sick_leave"] = True
                 weeks[week_key][day_key]["notes"] = f"Sick Leave"
